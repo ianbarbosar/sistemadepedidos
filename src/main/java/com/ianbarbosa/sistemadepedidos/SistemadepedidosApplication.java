@@ -1,8 +1,12 @@
 package com.ianbarbosa.sistemadepedidos;
 
 import com.ianbarbosa.sistemadepedidos.domain.Categoria;
+import com.ianbarbosa.sistemadepedidos.domain.Cidade;
+import com.ianbarbosa.sistemadepedidos.domain.Estado;
 import com.ianbarbosa.sistemadepedidos.domain.Produto;
 import com.ianbarbosa.sistemadepedidos.repositories.CategoriaRepository;
+import com.ianbarbosa.sistemadepedidos.repositories.CidadeRepository;
+import com.ianbarbosa.sistemadepedidos.repositories.EstadoRepository;
 import com.ianbarbosa.sistemadepedidos.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +22,10 @@ public class SistemadepedidosApplication implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemadepedidosApplication.class, args);
@@ -41,5 +49,20 @@ public class SistemadepedidosApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+
 	}
 }
