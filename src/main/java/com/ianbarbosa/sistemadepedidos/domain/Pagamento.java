@@ -3,6 +3,7 @@ package com.ianbarbosa.sistemadepedidos.domain;
 import com.ianbarbosa.sistemadepedidos.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,12 +12,14 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @EqualsAndHashCode.Include
     private Integer id;
     private Integer estado;
 
